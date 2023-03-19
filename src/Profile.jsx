@@ -59,14 +59,15 @@ export function Profile() {
           variant="outlined"
           onClick={() => navigate("/")}
           sx={{ margin: "10PX" }}
-          startIcon={<ArrowBackIcon />}
+          startIcon={<span   className="profile-top-icon-arrowicon" ><ArrowBackIcon  /></span>}
+          className="profile-top-icon-backicon"
         >
           Back
         </Button>
 
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0,zIndex:-1 }}>
               <MoreVertIcon  />
             </IconButton>
           </Tooltip>
