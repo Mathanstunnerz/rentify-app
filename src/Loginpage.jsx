@@ -22,7 +22,6 @@ export function Loginpage() {
     initialValues: { name: "", password: "" },
     validationSchema: formvalidation,
     onSubmit: async (dat) => {
-      console.log(dat);
       const data = await fetch("https://rental-shop-database.vercel.app/user/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -61,7 +60,7 @@ export function Loginpage() {
       };
       //  console.log(JSON.stringify(signup))
 
-      const data = await fetch("https://rental-shop-database.vercel.app//user/signup", {
+      const data = await fetch("https://rental-shop-database.vercel.app/user/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(signup),
@@ -72,7 +71,7 @@ export function Loginpage() {
         localStorage.clear();
       } else {
         if (data.status === 400) {
-          setsignup("invalid credentials");
+          setsignup("username already exists");
           localStorage.clear();
         } else {
           const result = await data.json();
@@ -103,7 +102,8 @@ export function Loginpage() {
             onChange={handleChange}
             name="name"
             onBlur={handleBlur}
-            helperText={errors.name}
+            helperText={signup === "invalid credentials"?"invalid credentials":errors.name}
+            error={signup === "invalid credentials"? true : false}
           />
           <TextField
             size="small"
@@ -115,7 +115,8 @@ export function Loginpage() {
             onChange={handleChange}
             name="password"
             onBlur={handleBlur}
-            helperText={errors.password}
+            helperText={signup === "invalid credentials"?"invalid credentials":errors.password}
+            error={signup === "invalid credentials"? true : false}
           />
           <h4 className="create-account-text" onClick={() => setlogin(false)}>
             Create account
@@ -145,9 +146,9 @@ export function Loginpage() {
           method="post"
         >
           <h2>Signup</h2>
-          {/* {signup === "invalid credentials" ? (
-            <h6>invalid credentials</h6>
-          ) : null} */}
+          {signup === "invalid credentials" ? (
+            <h6 >invalid credentials</h6>
+          ) : null}
           <TextField
             size="small"
             id="outlined-basic"
@@ -158,7 +159,8 @@ export function Loginpage() {
             onChange={Formik.handleChange}
             name="name"
             onBlur={Formik.handleBlur}
-            helperText={Formik.errors.name}
+            helperText={signup === "username already exists"? "username already exists":Formik.errors.name}
+            error={signup === "username already exists" ||Formik.errors.name ? true : false}
           />
           <TextField
             size="small"
@@ -171,6 +173,7 @@ export function Loginpage() {
             name="password"
             onBlur={Formik.handleBlur}
             helperText={Formik.errors.password}
+            error={Formik.errors.password ? true : false}
           />
           <TextField
             size="small"
@@ -183,6 +186,7 @@ export function Loginpage() {
             name="email"
             onBlur={Formik.handleBlur}
             helperText={Formik.errors.email}
+            error={Formik.errors.email ? true : false}
           />
           <h4 className="create-account-text" onClick={() => setlogin(true)}>
             Login

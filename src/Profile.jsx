@@ -88,7 +88,9 @@ export function Profile() {
           >
             <MenuItem>
               <Typography textAlign="center" onClick={logout}>
-                Logout
+                <a className="logout" href="/">
+                  logout
+                </a>
               </Typography>
             </MenuItem>
           </Menu>{" "}
